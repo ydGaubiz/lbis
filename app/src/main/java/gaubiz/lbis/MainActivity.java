@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class MainActivity extends Activity {
 
-    LocationManager locationManager;
+    LocationManager locationManager;    //git
 
     TextView mStatus;       //서비스 사용 가능 여부 표시
     TextView tProvider;     //Provider(GPS, Network)정보 표시
