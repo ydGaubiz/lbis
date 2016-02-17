@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class MainActivity extends Activity {
 
-    LocationManager locationManager;    //git
+    LocationManager locationManager;
 
     TextView mStatus;       //서비스 사용 가능 여부 표시
     TextView tProvider;     //Provider(GPS, Network)정보 표시
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         //최적의 provider 선택
         mProvider = locationManager.getBestProvider(new Criteria(), true);
         //TextView 표시
-        mStatus.setText("현재 상태: ");
+        mStatus.setText("");
         tProvider.setText("현재 Provider: " + mProvider);
         //수신회수: GPS <-> Network 서비스로 변경이 될 경우 회수를 초기화
         mCount = 0;
@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
             mCount++;   //횟수
             //TextView(mResult)에 좌표 표시를 위해 스트링으로 변환
             String mLocation = String.format(
-                    "현재 위치: 수신회수(%d)\n\n" + "위도:%f\n" + "경도:%f\n",
+                    "현재 위치: 수집횟수(%d)\n\n" + "위도:%f\n" + "경도:%f\n",
                     mCount, location.getLatitude(), location.getLongitude()
             );
             //TextView(mResult)에 좌표 등을 표시
@@ -153,12 +153,5 @@ public class MainActivity extends Activity {
             mStatus.setText("현재 상태: 서비스 사용 불가");
         }
     };//LocationListener end
-
-
-    //웹뷰 실행 버튼
-    public void onButtonClickedWebView(View v) {
-        Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-        startActivity(intent);
-    }
 
 }//end
