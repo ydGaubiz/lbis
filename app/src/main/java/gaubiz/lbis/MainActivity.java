@@ -37,9 +37,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //위치정보 관리자 호출
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         //textView 로드
         mStatus = (TextView) findViewById(R.id.status);
         tProvider = (TextView) findViewById(R.id.tProvider);
@@ -67,6 +64,8 @@ public class MainActivity extends Activity {
 
     public void onResume() {
         super.onResume();
+        //위치정보 관리자 호출
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //최적의 provider 선택
         mProvider = locationManager.getBestProvider(new Criteria(), true);
         //TextView 표시
@@ -81,13 +80,25 @@ public class MainActivity extends Activity {
             Log.e("Permission_Exception","Permission not granted");
         }
     }
-
+/*
+    *다른 액티비티(웹뷰 등)
     public void onPause() {
         super.onPause();
         try {
-            locationManager.removeUpdates(mListener);
+            //locationManager.removeUpdates(mListener);
         } catch (SecurityException e) {
             Log.e("Permission_Exception","Permission not granted");
+        }
+    }
+*/
+
+    public void onDestroy() {
+        super.onDestroy();
+
+        try {
+            locationManager.removeUpdates(mListener);
+        } catch (SecurityException e) {
+            Log.e("kkk", "kkkk");
         }
     }
 
@@ -108,7 +119,7 @@ public class MainActivity extends Activity {
             mCount++;   //횟수
             //TextView(mResult)에 좌표 표시를 위해 스트링으로 변환
             String mLocation = String.format(
-                    "현재 위치: 수집횟수(%d)\n\n" + "위도:%f\n" + "경도:%f\n",
+                    "현재 위치 수집 Count(%d)\n\n" + "위도:%f\n" + "경도:%f\n",
                     mCount, location.getLatitude(), location.getLongitude()
             );
             //TextView(mResult)에 좌표 등을 표시
@@ -154,4 +165,9 @@ public class MainActivity extends Activity {
         }
     };//LocationListener end
 
+    //webView를 통한 지도 호출
+    public void onButtonClickedWebView(View v) {
+        Intent intent = new Intent(MainActivity.this, WebViewMapActivity.class);
+        startActivity(intent);
+    }
 }//end
