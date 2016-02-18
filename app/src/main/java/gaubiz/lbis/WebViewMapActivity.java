@@ -22,9 +22,6 @@ public class WebViewMapActivity extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true); // 웹뷰에서 자바 스크립트 사용
         mWebView.loadUrl(url);
         mWebView.setWebViewClient(new WebViewClient());
-
-/*        MainActivity ma = (MainActivity) getApplicationContext();
-        ma.onResume();*/
     }
 
 }//end
