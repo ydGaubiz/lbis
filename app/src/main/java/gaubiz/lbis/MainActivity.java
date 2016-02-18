@@ -80,8 +80,7 @@ public class MainActivity extends Activity {
             Log.e("Permission_Exception","Permission not granted");
         }
     }
-/*
-    *다른 액티비티(웹뷰 등)
+/*다른 액티비티(웹뷰 등) 호출했을 때 위치측정을 계속해야 하므로 주석 처리
     public void onPause() {
         super.onPause();
         try {
