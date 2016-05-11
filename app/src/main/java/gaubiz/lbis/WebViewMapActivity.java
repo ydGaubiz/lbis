@@ -10,7 +10,7 @@ public class WebViewMapActivity extends Activity {
 
     private WebView mWebView;
 
-    private String url = "http://m.naver.com/";
+    private String url = "http://203.255.218.152:5114/elbis/";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

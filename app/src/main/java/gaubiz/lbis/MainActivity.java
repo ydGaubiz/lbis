@@ -13,6 +13,8 @@ import android.os.StrictMode;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import java.lang.String;
@@ -32,15 +34,28 @@ public class MainActivity extends Activity {
 
     private String uuid, lat, lon; //uuid, 위도, 경도
 
+    private WebView mWebView;       //webview 실행
+    private String url = "http://203.255.218.152:5114/elbis/";  //webview 접속 url
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_webviewmap);
 
         //textView 로드
-        mStatus = (TextView) findViewById(R.id.status);
-        tProvider = (TextView) findViewById(R.id.tProvider);
-        mResult = (TextView) findViewById(R.id.result);
+        //mStatus = (TextView) findViewById(R.id.status);
+        //tProvider = (TextView) findViewById(R.id.tProvider);
+        //mResult = (TextView) findViewById(R.id.result);
+
+        //webview
+        mWebView = (WebView) findViewById(R.id.webView);
+
+        //웹뷰 호출
+        mWebView.getSettings().setJavaScriptEnabled(true); // 웹뷰에서 자바 스크립트 사용
+        mWebView.loadUrl(url);
+        mWebView.setWebViewClient(new WebViewClient());
 
         //UUID(Device 공유키, sim 카드 번호, 안드로이드 ID)
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -69,8 +84,8 @@ public class MainActivity extends Activity {
         //최적의 provider 선택
         mProvider = locationManager.getBestProvider(new Criteria(), true);
         //TextView 표시
-        mStatus.setText("");
-        tProvider.setText("현재 Provider: " + mProvider);
+        //mStatus.setText("");
+        //tProvider.setText("현재 Provider: " + mProvider);
         //수신회수: GPS <-> Network 서비스로 변경이 될 경우 회수를 초기화
         mCount = 0;
         try{
@@ -122,7 +137,7 @@ public class MainActivity extends Activity {
                     mCount, location.getLatitude(), location.getLongitude()
             );
             //TextView(mResult)에 좌표 등을 표시
-            mResult.setText(mLocation);
+            //mResult.setText(mLocation);
 
             //좌표받기
             double d1 = location.getLatitude();
@@ -150,17 +165,17 @@ public class MainActivity extends Activity {
                     sStatus = " GPS 사용 가능";
                     break;
             }
-            mStatus.setText("현재 상태: " + sStatus);
+            //mStatus.setText("현재 상태: " + sStatus);
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            mStatus.setText("현재 상태: 서비스 사용 가능");
+            //mStatus.setText("현재 상태: 서비스 사용 가능");
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            mStatus.setText("현재 상태: 서비스 사용 불가");
+            //mStatus.setText("현재 상태: 서비스 사용 불가");
         }
     };//LocationListener end
 
